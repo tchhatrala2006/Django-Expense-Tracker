@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            padding: 20px;
+        }
+
+        .expense-card {
+            width: 100%;
+            max-width: 450px;
+            background: #ffffff;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        .expense-card h1 {
+            text-align: center;
+            color: #0f172a;
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            color: #334155;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        select,
+        input {
+            width: 100%;
+            padding: 13px 14px;
+            margin-bottom: 20px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+            background: #f8fafc;
+        }
+
+        select:focus,
+        input:focus {
+            border-color: #7c3aed;
+            background: #ffffff;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 8px;
+            background: #7c3aed;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #6d28d9;
+            transform: translateY(-1px);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 22px;
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+        @media (max-width: 500px) {
+            .expense-card {
+                padding: 25px;
+            }
+
+            .expense-card h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="expense-card">
+
+        <h1>Expense Tracker</h1>
+
+        <p class="subtitle">
+            Track and manage your daily expenses
+        </p>
+
+        <form action="{% url 'insert' %}" method="post">
+
+            {% csrf_token %}
+
+            <label for="month">Select Month</label>
+
+            <select name="month" id="month">
+                <option value="January">January</option>
+                <option value="February">February</option>
+                <option value="March">March</option>
+                <option value="April">April</option>
+                <option value="May">May</option>
+                <option value="June">June</option>
+                <option value="July">July</option>
+                <option value="August">August</option>
+                <option value="September">September</option>
+                <option value="October">October</option>
+                <option value="November">November</option>
+                <option value="December">December</option>
+            </select>
+
+            <label for="name">Expense Name</label>
+
+            <input
+                type="text"
+                name="name"
+                id="name"
+                placeholder="e.g. Food, Travel, Shopping"
+                required
+            >
+
+            <label for="amount">Amount</label>
+
+            <input
+                type="number"
+                name="amount"
+                id="amount"
+                placeholder="Enter amount"
+                min="0"
+                required
+            >
+
+            <label for="date">Date</label>
+
+            <input
+                type="date"
+                name="date"
+                id="date"
+                required
+            >
+
+            <button type="submit">
+                Add Expense
+            </button>
+
+        </form>
+
+        <div class="footer">
+            Python • Django • Expense Tracker
+        </div>
+
+    </div>
+
+</body>
+</html>

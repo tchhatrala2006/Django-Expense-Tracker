@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            padding: 40px 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        /* Search Card */
+
+        .search-card {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 14px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .search-card h1 {
+            color: #0f172a;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 26px;
+        }
+
+        .search-form {
+            display: flex;
+            gap: 12px;
+        }
+
+        select {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+            background: #f8fafc;
+        }
+
+        select:focus {
+            border-color: #7c3aed;
+        }
+
+        .search-btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            background: #7c3aed;
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .search-btn:hover {
+            background: #6d28d9;
+        }
+
+        /* Table */
+
+        .table-card {
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 20px;
+            overflow-x: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 750px;
+        }
+
+        th {
+            background: #0f172a;
+            color: #ffffff;
+            padding: 14px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        td {
+            padding: 13px;
+            text-align: center;
+            border-bottom: 1px solid #e2e8f0;
+            color: #334155;
+            font-size: 14px;
+        }
+
+        tr:hover td {
+            background: #f8fafc;
+        }
+
+        /* Action Buttons */
+
+        .edit-btn,
+        .delete-btn {
+            display: inline-block;
+            padding: 7px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: bold;
+            margin: 2px;
+            transition: 0.3s;
+        }
+
+        .edit-btn {
+            background: #ede9fe;
+            color: #6d28d9;
+        }
+
+        .edit-btn:hover {
+            background: #7c3aed;
+            color: white;
+        }
+
+        .delete-btn {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .delete-btn:hover {
+            background: #dc2626;
+            color: white;
+        }
+
+        /* Mobile */
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 20px 10px;
+            }
+
+            .search-form {
+                flex-direction: column;
+            }
+
+            .search-btn {
+                width: 100%;
+            }
+
+            .search-card h1 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="search-card">
+
+        <h1>Expense Tracker</h1>
+
+        <form action="{% url 'search' %}" method="post" class="search-form">
+
+            {% csrf_token %}
+
+            <select name="month">
+                <option value="January">January</option>
+                <option value="February">February</option>
+                <option value="March">March</option>
+                <option value="April">April</option>
+                <option value="May">May</option>
+                <option value="June">June</option>
+                <option value="July">July</option>
+                <option value="August">August</option>
+                <option value="September">September</option>
+                <option value="October">October</option>
+                <option value="November">November</option>
+                <option value="December">December</option>
+            </select>
+
+            <button type="submit" class="search-btn">
+                Search Total Amount
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <div class="table-card">
+
+        <table>
+
+            <tr>
+                <th>Id</th>
+                <th>Month</th>
+                <th>Product Name</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+
+            {% for o in a1 %}
+
+            <tr>
+                <td>{{o.id}}</td>
+                <td>{{o.months}}</td>
+                <td>{{o.name}}</td>
+                <td>₹{{o.amount}}</td>
+                <td>{{o.date}}</td>
+
+                <td>
+                    <a href="{% url 'update' o.id %}" class="edit-btn">
+                        Edit
+                    </a>
+
+                    <a href="{% url 'delete' o.id %}" class="delete-btn">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>
